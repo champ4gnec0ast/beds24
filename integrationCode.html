@@ -1,0 +1,37 @@
+<!-- bookingWidget requires jQuery and jQueryUI -->
+<!-- Include the following line ONCE ONLY on the page, preferably in the document head -->
+<script src='https://media.xmlcal.com/widget/1.00/js/bookWidget.min.js'></script>
+
+<!-- Place this div on your page where you want the widget to show -->
+<div id='bookWidget-69606-266511-0-1741758108'> </div>
+
+<!-- The following will initialize the widget in the above div -->
+<script>
+jQuery(document).ready(function() {
+	jQuery('#bookWidget-69606-266511-0-1741758108').bookWidget({
+		propid:266511,
+		availableColor:'#ffffff',
+		availableBackgroundColor:'#76a87f',
+		backgroundColor:'#9eb8a2',
+		borderColor:'#ffffff',
+		boxShadow:true,
+		buttonBackgroundColor:'#799c7f',
+		buttonColor:'#ffffff',
+		color:'#ffffff',
+		dateSelection:1,
+		defaultNumNight:1,
+		formAction:'https://beds24.com/booking.php',
+		fontSize:'15px',
+		pastBackgroundColor:'#dfdfdf',
+		pastColor:'#000000',
+		peopleSelection:1,
+		showLabels:true,
+		unavailableBackgroundColor:'#bfbfbf',
+		weekFirstDay:1,
+		widgetLang:'ja',
+		widgetTitle:'Booking Widget',
+		widgetType:'BookingBox',
+		width:'100%'
+	});
+});
+</script>
