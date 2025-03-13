@@ -1,37 +1,92 @@
-<!-- bookingWidget requires jQuery and jQueryUI -->
-<!-- Include the following line ONCE ONLY on the page, preferably in the document head -->
-<script src='https://media.xmlcal.com/widget/1.00/js/bookWidget.min.js'></script>
+<head>
+    <title>Booking Integration Widget</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://media.xmlcal.com/widget/1.00/js/bookWidget.min.js"></script>
+    <style>
+        #widget-container {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+			visibility: none;
+		}
+		#languageSelect {
+			width: 10em;
+			height: 2em;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			font-size: 15px;
+			
+		}
+    </style>
+</head>
 
-<!-- Place this div on your page where you want the widget to show -->
-<div id='bookWidget-69606-266511-0-1741758108'> </div>
+<body>
 
-<!-- The following will initialize the widget in the above div -->
-<script>
-jQuery(document).ready(function() {
-	jQuery('#bookWidget-69606-266511-0-1741758108').bookWidget({
-		propid:266511,
-		availableColor:'#ffffff',
-		availableBackgroundColor:'#76a87f',
-		backgroundColor:'#9eb8a2',
-		borderColor:'#ffffff',
-		boxShadow:true,
-		buttonBackgroundColor:'#799c7f',
-		buttonColor:'#ffffff',
-		color:'#ffffff',
-		dateSelection:1,
-		defaultNumNight:1,
-		formAction:'https://beds24.com/booking.php',
-		fontSize:'15px',
-		pastBackgroundColor:'#dfdfdf',
-		pastColor:'#000000',
-		peopleSelection:1,
-		showLabels:true,
-		unavailableBackgroundColor:'#bfbfbf',
-		weekFirstDay:1,
-		widgetLang:'ja',
-		widgetTitle:'Booking Widget',
-		widgetType:'BookingBox',
-		width:'100%'
-	});
-});
-</script>
+    <label for="languageSelect">Select Language:</label>
+    <select id="languageSelect">
+        <option value="ja" selected>日本語 (Japanese)</option>
+        <option value="en">English</option>
+    </select>
+
+    <div id="widget-container">
+        <div id="bookWidget"></div>
+    </div>
+
+    <script>
+        let currentLanguage = "ja"; 
+
+        function reloadWidget() {
+			jQuery("#bookWidget").remove();
+            jQuery("#widget-container").addClass("hidden");
+            jQuery("#bookWidget").remove();
+
+            setTimeout(() => {
+                jQuery("#widget-container").append('<div id="bookWidget"></div>');
+                jQuery("#bookWidget").bookWidget({
+                    propid: 266511,
+                    availableColor: "#ffffff",
+                    availableBackgroundColor: "#76a87f",
+                    backgroundColor: "#9eb8a2",
+                    borderColor: "#ffffff",
+                    boxShadow: true,
+                    buttonBackgroundColor: "#799c7f",
+                    buttonColor: "#ffffff",
+                    color: "#ffffff",
+                    dateSelection: 3,
+                    defaultNumNight: 1,
+                    formAction: "https://beds24.com/booking.php",
+                    fontSize: "15px",
+                    pastBackgroundColor: "#dfdfdf",
+                    pastColor: "#000000",
+                    peopleSelection: 1,
+                    showLabels: true,
+                    unavailableBackgroundColor: "#bfbfbf",
+                    weekFirstDay: 1,
+                    widgetLang: currentLanguage, // Use dynamically updated language
+                    widgetTitle: "Booking Widget",
+                    widgetType: "BookingBox",
+                    width: "100%",
+                });
+
+                console.log("Widget reloaded with language:", currentLanguage);
+
+                setTimeout(() => {
+                    jQuery("#widget-container").removeClass("hidden");
+                }, 500);
+            }, 200);
+        }
+
+        jQuery(document).ready(function () {
+            reloadWidget(); 
+
+            jQuery("#languageSelect").on("change", function () {
+                currentLanguage = jQuery(this).val();
+                console.log("Language changed to:", currentLanguage);
+                reloadWidget();
+            });
+        });
+    </script>
+
+</body>
